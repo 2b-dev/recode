@@ -12,12 +12,6 @@ import {
     Platform,
     RefreshControl,
     StatusBar,
-    ListView,
-    Button,
-    WebView,
-    ActivityIndicator,
-    Slider,
-    TouchableHighlight,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Interactable from 'react-native-interactable';
