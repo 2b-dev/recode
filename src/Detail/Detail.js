@@ -18,198 +18,275 @@ import {
     ActivityIndicator,
     Slider,
     TouchableHighlight,
+    SafeAreaView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Interactable from 'react-native-interactable';
+import Swiper from 'react-native-swiper';
+import StarRating from 'react-native-star-rating';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Display from 'react-native-display';
+import styles from './styles';
 
-const HEADER_MAX_HEIGHT = 300;
-const HEADER_MIN_HEIGHT = Platform.OS === 'ios' ? 60 : 73;
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 export default class Detail extends Component {
-    constructor(props) {
+    
+    constructor(props){
         super(props);
-
         this.state = {
-            scrollY: new Animated.Value(            
-            Platform.OS === 'ios' ? -HEADER_MAX_HEIGHT : 0,
-            ),
-            refreshing: false,
+            starCount: 3.5,
+            enableStandard: false,
+            enableInfomation: true,
+            enableNote: true,
         };
     }
-    _renderScrollViewContent() {
-        const data = Array.from({ length: 30 });
-        return (
-            <View style={styles.scrollViewContent}>
-            {data.map((_, i) => (
-                <View key={i} style={styles.row}>
-                <Text>{i}</Text>
-                </View>
-            ))}
-            </View>
-        );
+    
+    toggleDisplayStandard() {
+        let toggle = !this.state.enableStandard;
+        this.setState({enableStandard: toggle});
     }
+    toggleDisplayInfomation() {
+        let toggle = !this.state.enableInfomation;
+        this.setState({enableInfomation: toggle});
+    }
+    toggleDisplayNote() {
+        let toggle = !this.state.enableNote;
+        this.setState({enableNote: toggle});
+    }
+    onStarRatingPress(rating){
+        this.setState({
+            starCount: rating
+        });
+    }
+    
     render(){
-        const scrollY = Animated.add(
-            this.state.scrollY,
-            Platform.OS === 'ios' ? HEADER_MAX_HEIGHT : 0,
-        );
-        const headerTranslate = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -HEADER_SCROLL_DISTANCE],
-            extrapolate: 'clamp',
-        });
-    
-        const imageOpacity = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 1, 0],
-            extrapolate: 'clamp',
-        });
-        const imageTranslate = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, 100],
-            extrapolate: 'clamp',
-        });
-    
-        const titleScale = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 1, 0.8],
-            extrapolate: 'clamp',
-        });
-        const titleTranslate = scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, 0, -8],
-            extrapolate: 'clamp',
-        });
         return(
-            <View style={styles.fill}>
-                <StatusBar
-                translucent
-                barStyle="light-content"
-                backgroundColor="rgba(0, 0, 0, 0.251)"
-                />
-                <Animated.ScrollView
-                style={styles.fill}
-                scrollEventThrottle={1}
-                onScroll={Animated.event(
-                    [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-                    { useNativeDriver: true },
-                )}
-                refreshControl={
-                    <RefreshControl
-                    refreshing={this.state.refreshing}
-                    onRefresh={() => {
-                        this.setState({ refreshing: true });
-                        setTimeout(() => this.setState({ refreshing: false }), 1000);
-                    }}
-                    progressViewOffset={HEADER_MAX_HEIGHT}
-                    />
-                }
-                contentInset={{
-                    top: HEADER_MAX_HEIGHT,
-                }}
-                contentOffset={{
-                    y: -HEADER_MAX_HEIGHT,
-                }}
+            <SafeAreaView style={styles.safeArea}>
+                <ScrollView 
                 >
-                {this._renderScrollViewContent()}
-                </Animated.ScrollView>
-                <Animated.View
-                pointerEvents="none"
-                style={[
-                    styles.header,
-                    { transform: [{ translateY: headerTranslate }] },
-                ]}
-                >
-                <Animated.Image
-                    style={[
-                    styles.backgroundImage,
-                    {
-                        opacity: imageOpacity,
-                        transform: [{ translateY: imageTranslate }],
-                    },
-                    ]}
-                    source={require('../ProductImgs/bag.jpg')}
-                />
-                </Animated.View>
-                <Animated.View
-                style={[
-                    styles.bar,
-                    {
-                    transform: [
-                        { scale: titleScale },
-                        { translateY: titleTranslate },
-                    ],
-                    },
-                ]}
-                >
-                <Text style={styles.title}>กระเป๋า</Text>
-                </Animated.View>
-            </View>
+                    <View style={styles.v_contain_slider}>
+                        <Swiper style={styles.wraper_slide}
+                            onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
+                            dot={<View style={styles.s_dot} />}
+                            activeDot={<View style={styles.s_dot_active} />}
+                            paginationStyle={styles.s_pag}
+                            loop
+                        >
+                            <View style={styles.v_slider}>
+                                <Image style={styles.img_slide} source={require('../ProductImgs/i1.png')} />
+                            </View>
+                            <View style={styles.v_slider}>
+                                <Image style={styles.img_slide} source={require('../ProductImgs/i2.png')} />
+                            </View>
+                            <View style={styles.v_slider}>
+                                <Image style={styles.img_slide} source={require('../ProductImgs/i3.png')} />
+                            </View>
+                            <View style={styles.v_slider}>
+                                <Image style={styles.img_slide} source={require('../ProductImgs/i4.png')} />
+                            </View>
+                        </Swiper>
+                    </View>
+                    <View style={styles.v_content}>
+                        <View style={styles.v_name_product}>
+                            <Text style={styles.t_name}>ชื่อสินค้า : </Text>
+                        </View>
+                        <View style={styles.v_star_contain}>
+                            <View style={styles.v_star_tab1}>
+                                <StarRating
+                                    disabled={true}
+                                    maxStars={5}
+                                    rating={this.state.starCount}
+                                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                                    starSize={16}
+                                    starStyle={{margin: 0,}}
+                                />
+                            </View>
+                            <View style={styles.v_star_tab1}>
+                                <Text style={styles.t_score}>3.5 ดี</Text>
+                            </View>
+                        </View>
+                        <View style={styles.v_review_contain}>
+                            <View style={styles.v_review_tab1}>
+                                <Text style={styles.defFont}>2,013 รีวิว</Text>
+                            </View>
+                            <View style={styles.v_review_tab2}>
+                                <Text style={styles.defFont}>ดูรีวิวทั้งหมด</Text>
+                            </View>
+                        </View>
+                        <View style={styles.v_block_price}>
+                            <Text style={styles.defFont}>ราคา : XXXX บาท</Text>
+                        </View>
+
+                        <TouchableOpacity
+                            onPress={this.toggleDisplayStandard.bind(this)}
+                        >
+                            <View style={styles.v_block_standard}>
+                                <View style={styles.v_block_title}>
+                                    <Text style={styles.t_header}>มาตรฐานที่ได้รับ</Text>
+                                </View>
+                                <View style={styles.v_block_icon}>
+                                    <Display
+                                        enable={!this.state.enableStandard} 
+                                        enterDuration={50} 
+                                        exitDuration={50}
+                                        exit="fadeOut"
+                                        enter="fadeIn"
+                                    >
+                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#fff" onPress={this.toggleDisplayStandard.bind(this)} /> : ''
+                                    </Display>
+                                    <Display
+                                        enable={this.state.enableStandard} 
+                                        enterDuration={50} 
+                                        exitDuration={50}
+                                        exit="fadeOut"
+                                        enter="fadeIn"
+                                    >
+                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#fff" onPress={this.toggleDisplayStandard.bind(this)} /> : ''
+                                    </Display>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <Display
+                            enable={this.state.enableStandard} 
+                            enterDuration={1000} 
+                            exitDuratio={100}
+                            exit="fadeOut"
+                            enter="fadeIn"
+                        >
+                            <View style={styles.v_logo_contain}>
+                                <View style={styles.v_logo_img_contain}>
+                                    <View style={styles.v_logo_img}>
+                                        <Image style={styles.img_logo} source={require('../logo/mok.png')} />
+                                    </View>
+                                    <View> style={styles.v_text_logo}>
+                                        <Text style={styles.t_logo}>มอก 1111/2541</Text>
+                                    </View>
+                                </View>  
+                                <View style={styles.v_logo_img_contain}>
+                                    <View style={styles.v_logo_img}>
+                                        <Image style={styles.img_logo} source={require('../logo/mok.png')} />
+                                    </View>
+                                    <View> style={styles.v_text_logo}>
+                                        <Text style={styles.t_logo}>มอก 1111/2541</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.v_logo_img_contain}>
+                                    <View style={styles.v_logo_img}>
+                                        <Image style={styles.img_logo} source={require('../logo/mok.png')} />
+                                    </View>
+                                    <View> style={styles.v_text_logo}>
+                                        <Text style={styles.t_logo}>มอก 1111/2541</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.v_logo_img_contain}>
+                                    <View style={styles.v_logo_img}>
+                                        <Image style={styles.img_logo} source={require('../logo/oy.png')} />
+                                    </View>
+                                    <View> style={styles.v_text_logo}>
+                                        <Text style={styles.t_logo}>มอก 1111/2541</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.v_logo_img_contain}>
+                                    <View style={styles.v_logo_img}>
+                                        <Image style={styles.img_logo} source={require('../logo/mok.png')} />
+                                    </View>
+                                    <View> style={styles.v_text_logo}>
+                                        <Text style={styles.t_logo}>มอก 1111/2541</Text>
+                                    </View>
+                                </View>           
+                            </View>
+                        </Display>
+                        <TouchableOpacity
+                            onPress={this.toggleDisplayInfomation.bind(this)}
+                        >
+                            <View style={styles.v_block_information}>
+                                <View style={styles.v_block_title}>
+                                    <Text style={styles.t_header}>ข้อมูลพื้นฐาน</Text>
+                                </View>
+                                <View style={styles.v_block_icon}>
+                                    <Display
+                                        enable={!this.state.enableInfomation} 
+                                        enterDuration={50} 
+                                        exitDuration={50}
+                                        exit="fadeOut"
+                                        enter="fadeIn"
+                                    >
+                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#4d9be4" onPress={this.toggleDisplayInfomation.bind(this)} /> : ''
+                                    </Display>
+                                    <Display
+                                        enable={this.state.enableInfomation} 
+                                        enterDuration={50} 
+                                        exitDuration={50}
+                                        exit="fadeOut"
+                                        enter="fadeIn"
+                                    >
+                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#4d9be4" onPress={this.toggleDisplayInfomation.bind(this)} /> : ''
+                                    </Display>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <Display
+                            enable={this.state.enableInfomation} 
+                            enterDuration={1000} 
+                            exitDuratio={100}
+                            exit="fadeOut"
+                            enter="fadeIn"
+                        >
+                            <View style={styles.v_t_standard}>
+                                <Text style={styles.defFont}>รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน
+                                รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน
+                                รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน</Text>
+                            </View>
+                        </Display>
+
+                        <TouchableOpacity
+                            onPress={this.toggleDisplayNote.bind(this)}
+                        >
+                            <View style={styles.v_block_note}>
+                                <View style={styles.v_block_title}>
+                                    <Text style={styles.t_header}>คำแนะนำ</Text>
+                                </View>
+                                <View style={styles.v_block_icon}>
+                                    <Display
+                                        enable={!this.state.enableNote} 
+                                        enterDuration={50} 
+                                        exitDuration={50}
+                                        exit="fadeOut"
+                                        enter="fadeIn"
+                                    >
+                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#f7244c" onPress={this.toggleDisplayNote.bind(this)} /> : ''
+                                    </Display>
+                                    <Display
+                                        enable={this.state.enableNote} 
+                                        enterDuration={50} 
+                                        exitDuration={50}
+                                        exit="fadeOut"
+                                        enter="fadeIn"
+                                    >
+                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#f7244c" onPress={this.toggleDisplayNote.bind(this)} /> : ''
+                                    </Display>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <Display
+                            enable={this.state.enableNote} 
+                            enterDuration={1000} 
+                            exitDuratio={100}
+                            exit="fadeOut"
+                            enter="fadeIn"
+                        >
+                            <View style={styles.v_t_note}>
+                                <Text style={styles.defFont}>รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
+                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
+                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
+                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
+                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน</Text>
+                            </View>
+                        </Display>
+
+                        
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
         )
-    }
-    onSnap(event) {
-        const { id } = event.nativeEvent;
-        if (id === 'bottom') {
-          this.setState({ canScroll: true });
-        }
-    }
-    onScroll(event) {
-        const { contentOffset } = event.nativeEvent;
-        if (contentOffset.y === 0) {
-          this.setState({ canScroll: false });
-        }
-    }
+    }    
 }
 
-const styles = StyleSheet.create({
-    fill: {
-        flex: 1,
-      },
-      content: {
-        flex: 1,
-      },
-      header: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#03A9F4',
-        overflow: 'hidden',
-        height: HEADER_MAX_HEIGHT,
-      },
-      backgroundImage: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        width: null,
-        height: HEADER_MAX_HEIGHT,
-        resizeMode: 'cover',
-      },
-      bar: {
-        backgroundColor: 'transparent',
-        marginTop: Platform.OS === 'ios' ? 28 : 38,
-        height: 32,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-      },
-      title: {
-        color: 'white',
-        fontSize: 18,
-      },
-      scrollViewContent: {
-        paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
-        backgroundColor: '#fff',
-      },
-      row: {
-        height: 40,
-        margin: 16,
-        backgroundColor: '#D3D3D3',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-})

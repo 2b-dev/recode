@@ -23,7 +23,7 @@ export default class App extends Component {
         <Scene key="root">
           <Scene key="home" component={Home} initial={true} hideNavBar={true} />
           <Scene key="scan" component={Scan} hideNavBar={true} />
-          <Scene key="detail" component={Detail} hideNavBar={true} />
+          <Scene key="detail" component={Detail} hideNavBar={false} title="ข้อมูลสินค้า"/>
         </Scene>
       </Router>
     );
