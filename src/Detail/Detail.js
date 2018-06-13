@@ -130,7 +130,7 @@ export default class Detail extends Component {
                                         exit="fadeOut"
                                         enter="fadeIn"
                                     >
-                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#fff" onPress={this.toggleDisplayStandard.bind(this)} /> : ''
+                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#fff" onPress={this.toggleDisplayStandard.bind(this)} />
                                     </Display>
                                     <Display
                                         enable={this.state.enableStandard} 
@@ -139,7 +139,7 @@ export default class Detail extends Component {
                                         exit="fadeOut"
                                         enter="fadeIn"
                                     >
-                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#fff" onPress={this.toggleDisplayStandard.bind(this)} /> : ''
+                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#fff" onPress={this.toggleDisplayStandard.bind(this)} />
                                     </Display>
                                 </View>
                             </View>
@@ -156,7 +156,7 @@ export default class Detail extends Component {
                                     <View style={styles.v_logo_img}>
                                         <Image style={styles.img_logo} source={require('../logo/mok.png')} />
                                     </View>
-                                    <View> style={styles.v_text_logo}>
+                                    <View style={styles.v_text_logo}>
                                         <Text style={styles.t_logo}>มอก 1111/2541</Text>
                                     </View>
                                 </View>  
@@ -164,7 +164,7 @@ export default class Detail extends Component {
                                     <View style={styles.v_logo_img}>
                                         <Image style={styles.img_logo} source={require('../logo/mok.png')} />
                                     </View>
-                                    <View> style={styles.v_text_logo}>
+                                    <View style={styles.v_text_logo}>
                                         <Text style={styles.t_logo}>มอก 1111/2541</Text>
                                     </View>
                                 </View>
@@ -172,7 +172,7 @@ export default class Detail extends Component {
                                     <View style={styles.v_logo_img}>
                                         <Image style={styles.img_logo} source={require('../logo/mok.png')} />
                                     </View>
-                                    <View> style={styles.v_text_logo}>
+                                    <View style={styles.v_text_logo}>
                                         <Text style={styles.t_logo}>มอก 1111/2541</Text>
                                     </View>
                                 </View>
@@ -180,7 +180,7 @@ export default class Detail extends Component {
                                     <View style={styles.v_logo_img}>
                                         <Image style={styles.img_logo} source={require('../logo/oy.png')} />
                                     </View>
-                                    <View> style={styles.v_text_logo}>
+                                    <View style={styles.v_text_logo}>
                                         <Text style={styles.t_logo}>มอก 1111/2541</Text>
                                     </View>
                                 </View>
@@ -188,7 +188,7 @@ export default class Detail extends Component {
                                     <View style={styles.v_logo_img}>
                                         <Image style={styles.img_logo} source={require('../logo/mok.png')} />
                                     </View>
-                                    <View> style={styles.v_text_logo}>
+                                    <View style={styles.v_text_logo}>
                                         <Text style={styles.t_logo}>มอก 1111/2541</Text>
                                     </View>
                                 </View>           
@@ -209,7 +209,7 @@ export default class Detail extends Component {
                                         exit="fadeOut"
                                         enter="fadeIn"
                                     >
-                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#4d9be4" onPress={this.toggleDisplayInfomation.bind(this)} /> : ''
+                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#4d9be4" onPress={this.toggleDisplayInfomation.bind(this)} />
                                     </Display>
                                     <Display
                                         enable={this.state.enableInfomation} 
@@ -218,7 +218,7 @@ export default class Detail extends Component {
                                         exit="fadeOut"
                                         enter="fadeIn"
                                     >
-                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#4d9be4" onPress={this.toggleDisplayInfomation.bind(this)} /> : ''
+                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#4d9be4" onPress={this.toggleDisplayInfomation.bind(this)} />
                                     </Display>
                                 </View>
                             </View>
@@ -252,7 +252,7 @@ export default class Detail extends Component {
                                         exit="fadeOut"
                                         enter="fadeIn"
                                     >
-                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#f7244c" onPress={this.toggleDisplayNote.bind(this)} /> : ''
+                                        <Icon.Button name="plus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#f7244c" onPress={this.toggleDisplayNote.bind(this)} />
                                     </Display>
                                     <Display
                                         enable={this.state.enableNote} 
@@ -261,7 +261,7 @@ export default class Detail extends Component {
                                         exit="fadeOut"
                                         enter="fadeIn"
                                     >
-                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#f7244c" onPress={this.toggleDisplayNote.bind(this)} /> : ''
+                                        <Icon.Button name="minus" color="#000" size={15} iconStyle={{marginTop: 5}} backgroundColor="#f7244c" onPress={this.toggleDisplayNote.bind(this)} />
                                     </Display>
                                 </View>
                             </View>
