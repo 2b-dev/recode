@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet,  View, ImageBackground, Image, Alert} from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, Button ,Form ,Item ,Label,Input ,Text } from 'native-base';
+import { Container, Header, Content, Button ,Form ,Item ,Label,Input ,Text, StyleProvider } from 'native-base';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Barcode from 'react-native-smart-barcode';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
+import getTheme from '../../native-base-theme/components';
+import material from '../../native-base-theme/variables/material';
 export default class HomePage extends Component {
 
     constructor(props){
@@ -62,6 +64,7 @@ export default class HomePage extends Component {
     }
     render(){
         return(
+            <StyleProvider style={getTheme(material)}>
             <Container>
                     <Grid style={{ backgroundColor: '#FFFFFF'}} >
                         <Row style={styles.row_center} size={25}  >
@@ -109,6 +112,7 @@ export default class HomePage extends Component {
                         />
                     </Grid>
             </Container>
+            </StyleProvider>
         )
     }
 
