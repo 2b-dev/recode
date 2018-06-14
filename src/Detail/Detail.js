@@ -36,9 +36,26 @@ export default class Detail extends Component {
             enableStandard: false,
             enableInfomation: true,
             enableNote: true,
+            title:"",
+            imageset:"",
+            detail:"",
+            prop:"",
+            note:"",
+            price:"",
         };
     }
-    
+
+    componentDidMount(){
+        console.log(this.props.data)
+        this.setState({title:this.props.data.title});
+        this.setState({imageset:this.props.data.Image});
+        this.setState({detail:this.props.data.detail});
+        this.setState({prop:this.props.data.prop});
+        this.setState({note:this.props.data.note});
+        this.setState({price:this.props.data.price});
+    }
+
+
     toggleDisplayStandard() {
         let toggle = !this.state.enableStandard;
         this.setState({enableStandard: toggle});
@@ -71,22 +88,13 @@ export default class Detail extends Component {
                             loop
                         >
                             <View style={styles.v_slider}>
-                                <Image style={styles.img_slide} source={require('../ProductImgs/i1.png')} />
-                            </View>
-                            <View style={styles.v_slider}>
-                                <Image style={styles.img_slide} source={require('../ProductImgs/i2.png')} />
-                            </View>
-                            <View style={styles.v_slider}>
-                                <Image style={styles.img_slide} source={require('../ProductImgs/i3.png')} />
-                            </View>
-                            <View style={styles.v_slider}>
-                                <Image style={styles.img_slide} source={require('../ProductImgs/i4.png')} />
+                                <Image style={styles.img_slide} source={{uri:this.state.imageset}} />
                             </View>
                         </Swiper>
                     </View>
                     <View style={styles.v_content}>
                         <View style={styles.v_name_product}>
-                            <Text style={styles.t_name}>ชื่อสินค้า : </Text>
+                            <Text style={styles.t_name}>{this.state.title}: </Text>
                         </View>
                         <View style={styles.v_star_contain}>
                             <View style={styles.v_star_tab1}>
@@ -112,7 +120,7 @@ export default class Detail extends Component {
                             </View>
                         </View>
                         <View style={styles.v_block_price}>
-                            <Text style={styles.defFont}>ราคา : XXXX บาท</Text>
+                            <Text style={styles.defFont}>ราคา : {this.state.price} บาท</Text>
                         </View>
 
                         <TouchableOpacity
@@ -231,9 +239,7 @@ export default class Detail extends Component {
                             enter="fadeIn"
                         >
                             <View style={styles.v_t_standard}>
-                                <Text style={styles.defFont}>รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน
-                                รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน
-                                รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน รายละเอียดข้อมูลพื้นฐาน</Text>
+                                <Text style={styles.defFont}>{this.state.detail}</Text>
                             </View>
                         </Display>
 
@@ -274,11 +280,7 @@ export default class Detail extends Component {
                             enter="fadeIn"
                         >
                             <View style={styles.v_t_note}>
-                                <Text style={styles.defFont}>รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
-                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
-                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
-                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน
-                                รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน รายละเอียดคำแนะนำ คำเตือน</Text>
+                                <Text style={styles.defFont}>{this.state.note}</Text>
                             </View>
                         </Display>
 

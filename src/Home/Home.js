@@ -7,44 +7,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  Image,
-  Button
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    ImageBackground,
+    Image,
+    Button,
+    TouchableHighlight, AppState,
+
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 export default class Home extends Component {
+
+
   render() {
     return (
-      <ImageBackground source={require('./images/home_bg.jpg')} style={{width: '100%', height: '100%'}}>
+      <ImageBackground  style={{width: '100%', height: '100%',backgroundColor: '#FFFFFF'}}>
         <View style={styles.container}>
-          <View style={styles.v_logo}>
+          <TouchableHighlight style={styles.v_logo} onPress= {() => {Actions.homepage(); }} >
             <Image source={require('./images/logo.png')} style={{resizeMode: 'center',}} />
-          </View>
-          <View style={styles.v_btn}>
-            <View style={styles.v_each_btn}>
-              <Button
-                onPress= {() => {Actions.detail(); }}
-                title="ค้นหาด้วยรหัสสินค้า"
-                color="#000"
-                backgroundColor="#000"
-                accessibilityLabel="ค้นหาด้วยรหัสสินค้า"
-              />
-            </View>
-            <View style={styles.v_each_btn}>
-              <Button
-                  onPress= {() => {Actions.scan(); }}
-                  title="สแกนบาร์โค้ด"
-                  color="#000"
-                  backgroundColor="#000"
-                  accessibilityLabel="สแกนบาร์โค้ด"
-              />
-              <Text></Text>
-            </View>
-          </View>
+          </TouchableHighlight>
         </View>
       </ImageBackground>
     );
